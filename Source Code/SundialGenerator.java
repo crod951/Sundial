@@ -14,6 +14,8 @@ import calculationsandtests.SundialCalculations;
  */
 import drawings.Printer;
 import drawings.SundialDrawing;
+import drawings.GnomonDrawing;
+import drawings.DialDrawing;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -468,13 +470,33 @@ public class SundialGenerator {
                                                 lineLabels = SundialCalculations.getLineLabels(latitude, longitude, date, dst);
                                                 gnomonAngle = SundialCalculations.getGnomonAngle(latitude);
                                                 
+                                                /* For Debugging
+                                                for (int i = 0; i < hourLineAngles.length; i++) {
+                                                	System.out.println(hourLineAngles[i]);
+                                                }
+                                                for (int i = 0; i < lineLabels.length; i++) {
+                                                	System.out.println(lineLabels[i]);
+                                                }
+                                                */
+                                                
                                                 //Creates new JFrame for the sundial drawing
                                            	 	JFrame frame = new JFrame("Sundial");
+                                           	 	JFrame gnomonFrame = new JFrame("Gnomon");
+                                           	 	JFrame dialFrame = new JFrame("Dial");
                                            	 	frame.setSize(1370,770);
+                                           	 	gnomonFrame.setSize(1370,770);
+                                           	 	dialFrame.setSize(1370,770);
+                                           	 	
                                            	 	//Call to the SundialDrawingConstructor
                                            	 	SundialDrawing panel = new SundialDrawing(hourLineAngles, lineLabels, gnomonAngle, SundialCalculations.isNorthernHemisphere(latitude));
+                                           	 	GnomonDrawing gnomonPanel = new GnomonDrawing(gnomonAngle);    
+                                           	 	DialDrawing sundialPanel = new DialDrawing(hourLineAngles,lineLabels);
                                            	 	frame.setContentPane(panel);          
                                            	 	frame.setVisible(true); 
+                                           	 	gnomonFrame.setContentPane(gnomonPanel);
+                                           	 	gnomonFrame.setVisible(true);
+                                           	 	dialFrame.setContentPane(sundialPanel);
+                                           	 	dialFrame.setVisible(true);
                                            	 	
                                            	 	//Brings up the print dialog for the sundial drawing
                                                 PrinterJob pjob = PrinterJob.getPrinterJob();
