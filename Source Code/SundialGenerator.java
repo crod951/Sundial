@@ -1,7 +1,5 @@
 
 import calculationsandtests.SundialCalculations;
-
-import drawings.DrawingFrame;
 /*
  * 
  * SundialGenerator
@@ -10,11 +8,10 @@ import drawings.DrawingFrame;
  *   Program that generates a printable sundial based on user's input of date and coordinate information
  *   
  * @authors:
- *   Reid Satsuma, Ethan Smith, Christopher Rodrigues
+ *   Christopher Rodrigues, Samuel Kim, John Rasay
  * 
  */
-import drawings.Printer;
-import drawings.SundialDrawing;
+import drawings.DrawingFrame;
 import drawings.GnomonDrawing;
 import drawings.DialDrawing;
 
@@ -471,54 +468,20 @@ public class SundialGenerator {
                                                 lineLabels = SundialCalculations.getLineLabels(latitude, longitude, date, dst);
                                                 gnomonAngle = SundialCalculations.getGnomonAngle(latitude);
                                                 
-                                                /* For Debugging
-                                                for (int i = 0; i < hourLineAngles.length; i++) {
+                                                // For Debugging
+                                                /*for (int i = 0; i < hourLineAngles.length; i++) {
                                                 	System.out.println(hourLineAngles[i]);
                                                 }
                                                 for (int i = 0; i < lineLabels.length; i++) {
                                                 	System.out.println(lineLabels[i]);
-                                                }
-                                                */
-                                                
-                                                //Creates new JFrame for the sundial drawing
-                                           	 //	JFrame frame = new JFrame("Sundial");
-                                           	 //	JFrame gnomonFrame = new JFrame("Gnomon");
-                                           	 //	JFrame dialFrame = new JFrame("Dial");
-                                           	 //	frame.setSize(1370,770);
-                                           	 //	gnomonFrame.setSize(1370,770);
-                                           	 //	dialFrame.setSize(1370,770);
+                                                }*/
+
                                            	 	
-                                           	 	//Call to the SundialDrawingConstructor
-                                           	 //	SundialDrawing panel = new SundialDrawing(hourLineAngles, lineLabels, gnomonAngle, SundialCalculations.isNorthernHemisphere(latitude));
+                                           	 	//Call to the Sundial Drawing classes                                
                                            	 	GnomonDrawing gnomonPanel = new GnomonDrawing(gnomonAngle);    
                                            	 	DialDrawing sundialPanel = new DialDrawing(hourLineAngles,lineLabels);
                                            	 	new DrawingFrame(gnomonPanel,sundialPanel);
-                                           	 //	frame.setContentPane(panel);          
-                                           	 //	frame.setVisible(true); 
-                                           	 	//gnomonFrame.setContentPane(gnomonPanel);
-                                           	 //	gnomonFrame.setVisible(true);
-                                           	 //	dialFrame.setContentPane(sundialPanel);
-                                           	// 	dialFrame.setVisible(true);
-                                           	 	
-                                           	 	//Brings up the print dialog for the sundial drawing
-                                                PrinterJob pjob = PrinterJob.getPrinterJob();
-                                                PageFormat preformat = pjob.defaultPage();
-                                                preformat.setOrientation(PageFormat.LANDSCAPE);
-                                                PageFormat postformat = pjob.pageDialog(preformat);
-                                                
-                                                //If user does not hit cancel then print.
-                                                if (preformat != postformat) {
-                                                    //Set print component
-                                                    pjob.setPrintable(new Printer(frame), postformat);
-                                                    if (pjob.printDialog()) {
-                                                        try {
-															pjob.print();
-														} catch (PrinterException e) {
-															// TODO Auto-generated catch block
-															e.printStackTrace();
-														}
-                                                    }
-                                                }
+
                                                 
                                                 ///////////////////////////////////////////////////////
                                                 //                                                   //

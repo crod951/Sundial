@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.geom.Line2D;
 import java.math.BigDecimal;
@@ -23,7 +24,8 @@ public class GnomonDrawing extends JPanel {
    	* @param angle the angle use to calculate the height of the triangle
    	*/
 	public GnomonDrawing(double angle) {
-		 setBackground(new java.awt.Color(255, 255, 255));
+		super(new GridLayout(1, 1));
+		setBackground(new java.awt.Color(255, 255, 255));
 		//************************************************************Screen Resolution**************************************************************************************************
 		this.width = Toolkit.getDefaultToolkit().getScreenSize().width;
 		this.height = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -39,7 +41,6 @@ public class GnomonDrawing extends JPanel {
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setPaint(Color.red);
-		g2d.scale(.6,.6);
 		
 		//*******************************************************************Drawing the Triangle******************************************************************************************
 		g2d.draw(new Line2D.Double(this.width*.05,(this.h + (this.height*.05)),(this.base + (this.width*.05)),(this.h + (this.height*.05)) )); //This is the base of the triangle

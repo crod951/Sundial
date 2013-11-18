@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.geom.Line2D;
 import java.math.BigDecimal;
@@ -36,21 +37,20 @@ public class DialDrawing extends JPanel {
 		private double b; //Length of half of the border
 		
 		//The arrays for holding the angles of the hours and labels
-		static double[] hourLineAngles;
-		static int[] lineLabels = new int[13];
-		static double[] lineNum = new double[13];
+		private static double[] hourLineAngles = new double[13];
+		private static int[] lineLabels = new int[13];
+		private static double[] lineNum = new double[13];
 		//Array of booleans for determining if each hour angle is on the left or right of the dial
-		static boolean[] left_right = new boolean[13];
+		private static boolean[] left_right = new boolean[13];
 	   
 		/**
 		 * The constructor of DrawDial
 		 * @param lineLabes to hold the labels for each hour
-		 * @param hourLineAngles to hold the angles for each hour
+		 * @param this.hourLineAngles to hold the angles for each hour
 		 */
 		public DialDrawing(double[] hourLineAngles, int[] lineLabels) {
-			
+			super(new GridLayout(1, 1));
 			setBackground(Color.white);
-			
 			//************************************************************Screen Resolution**************************************************************************************************
 			this.width = Toolkit.getDefaultToolkit().getScreenSize().width;
 			this.height = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -88,38 +88,38 @@ public class DialDrawing extends JPanel {
 			//The lines are drawn inside and rectangle divided into two rectangles
 			//Left square is the left part of the sundial while the right square is the right part of the sundial
 			//Each square has two right triangles, and this is use to determine the height which is needed to draw the hour line
-			for (int i = 0; i < hourLineAngles.length; i++) {
+			for (int i = 0; i < this.hourLineAngles.length; i++) {
 				//Hour line is on the left
-				if (hourLineAngles[i] <= 0) {
-					hourLineAngles[i] = 90 + hourLineAngles[i];
-					if (hourLineAngles[i] >= 0) {
+				if (this.hourLineAngles[i] <= 0) {
+					this.hourLineAngles[i] = 90 + this.hourLineAngles[i];
+					if (this.hourLineAngles[i] >= 0) {
 						//Since each hour line forms a triangle
 						//We need to find the height of the triangle by using the given base and the angle
 						//With the formula height = tanA*base
 						//Store the height in the array lineNum
-						if (hourLineAngles[i] <= 45) {
-							this.lineNum[i] = Math.tan(Math.toRadians(hourLineAngles[i]))*(this.b);
+						if (this.hourLineAngles[i] <= 45) {
+							this.lineNum[i] = Math.tan(Math.toRadians(this.hourLineAngles[i]))*(this.b);
 							this.lineNum[i] = (this.h - this.round(this.lineNum[i], 2, BigDecimal.ROUND_HALF_UP)) + this.height*.05;
 						}
 						//This is the top right triangle of the square
-						else if (hourLineAngles[i] > 45 && hourLineAngles[i] < 90) {
-							this.lineNum[i] = Math.tan(Math.toRadians(90 - hourLineAngles[i]))*(this.h);
+						else if (this.hourLineAngles[i] > 45 && this.hourLineAngles[i] < 90) {
+							this.lineNum[i] = Math.tan(Math.toRadians(90 - this.hourLineAngles[i]))*(this.h);
 							this.lineNum[i] = (this.origin - (this.round(this.lineNum[i], 2, BigDecimal.ROUND_HALF_UP)));
 						}
 					}
 				}
 				//Hour line is on the right
-				else if (hourLineAngles[i] > 0) {
+				else if (this.hourLineAngles[i] > 0) {
 					//Sets it to true to tell that the hour line is on the right, later use for drawing the line.
 					this.left_right[i] = true;
-					hourLineAngles[i] = 90 - hourLineAngles[i];
-					if (hourLineAngles[i] >= 0) {
-						if (hourLineAngles[i] <= 45) {
-							this.lineNum[i] = Math.tan(Math.toRadians(hourLineAngles[i]))*(this.b);
+					this.hourLineAngles[i] = 90 - this.hourLineAngles[i];
+					if (this.hourLineAngles[i] >= 0) {
+						if (this.hourLineAngles[i] <= 45) {
+							this.lineNum[i] = Math.tan(Math.toRadians(this.hourLineAngles[i]))*(this.b);
 							this.lineNum[i] = (this.h - this.round(this.lineNum[i], 2, BigDecimal.ROUND_HALF_UP)) + this.height*.05;
 						}
-						else if (hourLineAngles[i] > 45 && hourLineAngles[i] < 90) {
-							this.lineNum[i] = Math.tan(Math.toRadians(90 - hourLineAngles[i]))*(this.h);
+						else if (this.hourLineAngles[i] > 45 && this.hourLineAngles[i] < 90) {
+							this.lineNum[i] = Math.tan(Math.toRadians(90 - this.hourLineAngles[i]))*(this.h);
 							this.lineNum[i] = (this.origin + (this.round(this.lineNum[i], 2, BigDecimal.ROUND_HALF_UP)));
 						}
 					}
@@ -129,11 +129,11 @@ public class DialDrawing extends JPanel {
 		}
 		
 		public void paint(Graphics g) {
+			super.paint(g);
 			Font f = new Font ("default", Font.BOLD, 30);
 			g.setFont(f);
 			Graphics2D g2d = (Graphics2D) g;
 			g2d.setPaint(Color.BLACK);
-			g2d.scale(.6,.6);
 			g.drawString("AM", (int) (this.width*.05 + 15) , (int) (this.height*.85 + 50));
 			g.drawString("PM", (int) (this.width*.90 - 55) , (int) (this.height*.85 + 50));
 			  
@@ -144,7 +144,7 @@ public class DialDrawing extends JPanel {
 			g2d.draw(new Line2D.Double(bottom_point_x1,bottom_point_y,bottom_point_x2,bottom_point_y ));//Bottom_Side
 			
 			//Drawing the Lines and Labels
-			//hourLineAngles[0...n] corresponds to lineLabels[0....n]
+			//this.hourLineAngles[0...n] corresponds to lineLabels[0....n]
 			//The >= 0 check, is to prevent the line from being drawn below the border
 			for(int i = 0; i < this.hourLineAngles.length; i++) {
 				//Hour line is on left
