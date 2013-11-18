@@ -21,8 +21,8 @@ public class SundialPrinter implements Printable {
 
 	public SundialPrinter(PrinterJob printJob, BufferedImage image) {
 		PageFormat pageFormat = printJob.defaultPage();
-		this.x = 60; //The x coordinate
-		this.y = 100; //The y coordinate
+		this.x = pageFormat.getImageableX() + 15; //The x coordinate
+		this.y = pageFormat.getImageableY() + 5; //The y coordinate
 		this.orientation = pageFormat.getOrientation();
 		this.image = image;
 		
@@ -35,8 +35,8 @@ public class SundialPrinter implements Printable {
 		   int pWidth = 0;
 		   int pHeight = 0;
 		   if (orientation == PageFormat.PORTRAIT) {
-			   pWidth = (int) 800;
-               pHeight = (int) 500;
+			   pWidth = (int) 675;
+               pHeight = (int) 475;
            } else {
         	   pHeight = (int) 600;
                pWidth = (int) 375;
