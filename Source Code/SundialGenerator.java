@@ -202,6 +202,10 @@ public class SundialGenerator {
                 // Link to find coordinate data
                 JLabel lblFindCoordinateData = new JLabel("Find coordinate data here");
                 lblFindCoordinateData.setForeground(Color.BLUE);
+                Font font = lblFindCoordinateData.getFont();
+                Map attributes = font.getAttributes();
+                attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+                lblFindCoordinateData.setFont(font.deriveFont(attributes));
                 panel.add(lblFindCoordinateData, "1, 9, center, default");
                 lblFindCoordinateData.addMouseListener(new MouseAdapter() {
                         @Override
@@ -266,7 +270,7 @@ public class SundialGenerator {
                 
                 // Latitude directional combobox
                 final JComboBox<String> comboBox_2 = new JComboBox<String>();
-                comboBox_2.setModel(new DefaultComboBoxModel<String>(new String[] {"N", "S"}));
+                comboBox_2.setModel(new DefaultComboBoxModel<String>(new String[] {"North", "South"}));
                 panel_2.add(comboBox_2);
                 
                 // Longitude label
@@ -300,19 +304,23 @@ public class SundialGenerator {
                 
                 // Longitude directional combobox
                 final JComboBox<String> comboBox_3 = new JComboBox<String>();
-                comboBox_3.setModel(new DefaultComboBoxModel<String>(new String[] {"E", "W"}));
+                comboBox_3.setModel(new DefaultComboBoxModel<String>(new String[] {"East", "West"}));
                 panel_3.add(comboBox_3);
                 
-                // Mesa Verde link
-                JLabel lblMesaVerdeReseach = new JLabel("Mesa Verde Research Group");
-                lblMesaVerdeReseach.setForeground(Color.BLUE);
+                // Team Bobal link
+                JLabel lblBobalReseach = new JLabel("Team Bobal Github");
+                lblBobalReseach.setForeground(Color.BLUE);
+                Font font2 = lblBobalReseach.getFont();
+                Map attributes2 = font2.getAttributes();
+                attributes2.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+                lblBobalReseach.setFont(font2.deriveFont(attributes2));
                 lblMesaVerdeReseach.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent arg0) {
                                 
 	                        try
 	                        {
-	                            URI url = new URI("https://code.google.com/p/rss-sundial/");
+	                            URI url = new URI("https://github.com/crod951/Sundial");
 	                                
 	                            if (Desktop.isDesktopSupported())
 	                            {
