@@ -23,9 +23,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.print.PageFormat;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
+import java.awt.font.TextAttribute;
 import java.util.*;
 import java.net.*;
 import javax.swing.border.LineBorder;
@@ -314,7 +312,7 @@ public class SundialGenerator {
                 Map attributes2 = font2.getAttributes();
                 attributes2.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
                 lblBobalReseach.setFont(font2.deriveFont(attributes2));
-                lblMesaVerdeReseach.addMouseListener(new MouseAdapter() {
+                lblBobalReseach.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent arg0) {
                                 
@@ -344,7 +342,7 @@ public class SundialGenerator {
 	                        }       
                         }
                 });
-                panel.add(lblMesaVerdeReseach, "1, 19, center, default");
+                panel.add(lblBobalReseach, "1, 19, center, default");
                 
                 // Generate Sundial button
                 JButton btnGenerateSundial = new JButton("Generate Sundial");
