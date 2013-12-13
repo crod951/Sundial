@@ -7,14 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.awt.print.PageFormat;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.io.File;
-import java.io.IOException;
 
 public class DrawingFrame extends JFrame implements ActionListener {
 	
+	//Instance Variables
+	//Tabpane, menu items, gnomon, dial, width, height
 	private JTabbedPane tab;
 	private JMenuItem print = new JMenuItem("Print");
 	private JMenuItem save = new JMenuItem("Save");	
@@ -26,14 +24,15 @@ public class DrawingFrame extends JFrame implements ActionListener {
 
 	public DrawingFrame(GnomonDrawing gnomon, DialDrawing dial) {
 		 	
-			
+			//Initiliazing variables
 			this.gnomon = gnomon;
 			this.dial = dial;
 			
+			//Getting the width and height of screen
 			this.width = Toolkit.getDefaultToolkit().getScreenSize().width;
 			this.height = Toolkit.getDefaultToolkit().getScreenSize().height;
 			
-			//JFrame F = new JFrame("The Sundial");
+			//Creating tabpane, menu bar, and file menu
 			tab = new JTabbedPane();
 			JMenuBar menubar = new JMenuBar();
 			JMenu menu1 = new JMenu ("File");
@@ -65,45 +64,21 @@ public class DrawingFrame extends JFrame implements ActionListener {
 		    this.setSize(this.width, this.height);
 		    this.setVisible(true);
 	}
-		
+	
+	/**
+	 * Events
+	 */
 	public void actionPerformed(ActionEvent E) {
-		//Prints the two panels
+		//Prints the currently selected panels
 		if(E.getSource() == print) {
-			//To be Implemented
 			//Get the currently selected tab panel and send it to bufferedImage
 			BufferedImage image = getScreenShot(tab.getSelectedComponent());
+			new SundialPrinter(image);
 			
-			/*For Debugging
-			PrinterJob pjob = PrinterJob.getPrinterJob();
-			PageFormat preformat = pjob.defaultPage();
-            preformat.setOrientation(PageFormat.LANDSCAPE);
-            
-            System.out.println(preformat.getImageableX());
-            System.out.println(preformat.getImageableY());
-            System.out.println(preformat.getImageableHeight());
-            System.out.println(preformat.getImageableWidth());
-			
-			System.out.println(image.getHeight());
-			System.out.println(image.getWidth());
-			*/
-			
-			//Printing the image
-			PrinterJob printJob = PrinterJob.getPrinterJob();
-			PageFormat preformat = printJob.defaultPage();
-            preformat.setOrientation(PageFormat.LANDSCAPE);
-	        printJob.setPrintable(new SundialPrinter(printJob, image),preformat);
-
-	        if (printJob.printDialog()) {
-	            try {
-	                printJob.print();
-	            } catch (PrinterException prt) {
-	                prt.printStackTrace();
-	            }
-	        }
 
 		}
 		
-		//Saves the two Panels as PNG
+		//Saves the two Panels as PNG in the project directory
 		if(E.getSource() == save) {
 		   //To be Implemented
 			try {
